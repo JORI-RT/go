@@ -1,6 +1,24 @@
 [playground](https://play.golang.org/p/p7Bj7NA-3cX)
-## error
+## function and type
 ```go
+func main(){
+       func(){
+              fmt.println("hello")
+       }() // この()は無名関数を定義してすぐに呼び出し
+
+// empty interface
+var f = interface{}
+f = 100
+f = "" // javaのオブジェクトの代わり
+
+// 型アサーション
+var v interface{}
+v = 100
+n,ok := v.(int)
+fmt.Println(n, ok)
+s,ok := v.(string)
+fmt.Println(s, ok)
+
 type error interface {
        Error() string
 }
@@ -21,6 +39,15 @@ type PathError struct {
 }
 func (e *PathError) Error() string {
        return e.Op + " " + e.Path + ": " + e.Err.Error()
+}
+// panic/recover
+func main() {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println(r, "sss")
+		}
+	}()
+	panic("ERROR") // 文字列じゃなくてもいい
 }
 
 
